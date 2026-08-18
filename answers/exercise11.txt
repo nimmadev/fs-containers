@@ -1,0 +1,26 @@
+~/Documents/fs-containers/todo-app/todo-backend main*
+❯ docker compose ps
+NAME                   IMAGE     COMMAND                  SERVICE   CREATED          STATUS          PORTS
+todo-backend-mongo-1   mongo     "docker-entrypoint.s…"   mongo     56 minutes ago   Up 56 minutes   0.0.0.0:3456->27017/tcp, [::]:3456->27017/tcp
+todo-backend-redis-1   redis     "docker-entrypoint.s…"   redis     27 minutes ago   Up 27 minutes   0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp
+
+~/Documents/fs-containers/todo-app/todo-backend main*
+❯ docker exec -it todo-backend-redis-1 bash
+root@bfeba4785522:/data# redis-cli
+127.0.0.1:6379> KEYS
+(error) ERR wrong number of arguments for 'keys' command
+127.0.0.1:6379> keys
+(error) ERR wrong number of arguments for 'keys' command
+127.0.0.1:6379> KEYS added_todos
+(empty array)
+127.0.0.1:6379> GET added_todos
+(nil)
+127.0.0.1:6379> SET added_todos 9001
+OK
+127.0.0.1:6379> GET added_todos
+"9001"
+127.0.0.1:6379> DEL added_todos
+(integer) 1
+127.0.0.1:6379> GET added_todos
+(nil)
+127.0.0.1:6379> 
